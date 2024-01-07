@@ -30,4 +30,12 @@ public class Constants {
 
     }
 
+    public static final class ControlsConstants {
+
+        public static final int PORT_NUMBER_DRIVER_LEFT_JOYSTICK = 0;
+        public static final int PORT_NUMBER_DRIVER_RIGHT_JOYSTICK = 1;
+        public static final int PORT_NUMBER_OPERATOR_JOYSTICK = 2;
+
+    }
+
 }
