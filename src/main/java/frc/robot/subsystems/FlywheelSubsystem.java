@@ -30,5 +30,9 @@ public class FlywheelSubsystem extends SubsystemBase {
         this.leftFlywheel.set(LEFT_SPEED);
         this.rightFlywheel.set(RIGHT_SPEED);
     }
-
+    
+    public void stop(){
+        this.leftFlywheel.set(0);
+        this.rightFlywheel.set(0);
+    }
 }
