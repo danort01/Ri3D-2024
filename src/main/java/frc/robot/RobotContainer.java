@@ -29,25 +29,30 @@ public class RobotContainer {
   private final CommandJoystick operatorJoystick = new CommandJoystick(PORT_NUMBER_OPERATOR_JOYSTICK);
 
   public RobotContainer() {
-    drivetrainSubsystem.setDefaultCommand(new RunCommand(() -> this.drivetrainSubsystem.arcadeDrive(driverLeftJoystick.getY(), driverRightJoystick.getX(), true), this.drivetrainSubsystem));
-    intakeSubsystem.setDefaultCommand(new RunCommand(this.intakeSubsystem::stop, this.intakeSubsystem));
-    flywheelSubsystem.setDefaultCommand(new RunCommand(this.flywheelSubsystem::stop, this.flywheelSubsystem));
+    drivetrainSubsystem.setDefaultCommand(Commands.run(
+        () -> this.drivetrainSubsystem.arcadeDrive(driverLeftJoystick.getY(), driverRightJoystick.getX(), true),
+        this.drivetrainSubsystem));
+    intakeSubsystem.setDefaultCommand(Commands.run(this.intakeSubsystem::stop, this.intakeSubsystem));
+    flywheelSubsystem.setDefaultCommand(Commands.run(this.flywheelSubsystem::stop, this.flywheelSubsystem));
     climbSubsystem.setDefaultCommand(
-        new RunCommand(() -> this.climbSubsystem.set(this.operatorJoystick.getY()), this.climbSubsystem));
+        Commands.run(() -> this.climbSubsystem.set(this.operatorJoystick.getY()), this.climbSubsystem));
 
     configureBindings();
   }
 
   private void configureBindings() {
     driverLeftJoystick.button(BUTTON_ID_TRIGGER)
-        .whileTrue(new RunCommand(this.intakeSubsystem::intake, this.intakeSubsystem));
-    driverRightJoystick.button(BUTTON_ID_TRIGGER).whileTrue(new RunCommand(() -> {
-      this.flywheelSubsystem.spinUp();
+        .whileTrue(Commands.run(this.intakeSubsystem::intake, this.intakeSubsystem));
+    driverRightJoystick.button(BUTTON_ID_TRIGGER).whileTrue(Commands.run(() -> {
+      this.flywheelSubsystem.spinUp((-this.driverRightJoystick.getThrottle() + 1.0) / 2.0);
       this.intakeSubsystem.shoot();
     }, this.flywheelSubsystem, this.intakeSubsystem));
   }
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    return Commands.run(() -> {
+      this.flywheelSubsystem.spinUp(1.0);
+      this.intakeSubsystem.shoot();
+    }, this.flywheelSubsystem, this.intakeSubsystem).withTimeout(2).andThen(Commands.run(() -> drivetrainSubsystem.arcadeDrive(-0.25, 0, false), drivetrainSubsystem).withTimeout(3.0));
   }
 }

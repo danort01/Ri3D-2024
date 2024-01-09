@@ -18,7 +18,7 @@ public class Constants {
 
         public static final int CHANNEL_LIMIT_SWITCH = 0;
 
-        public static final double INTAKE_SPEED = 0.5;
+        public static final double INTAKE_SPEED = 1.0;
         public static final double SHOOT_SPEED = 1.0;
 
     }

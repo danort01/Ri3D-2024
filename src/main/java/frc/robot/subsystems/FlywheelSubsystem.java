@@ -27,9 +27,9 @@ public class FlywheelSubsystem extends SubsystemBase {
         this.rightFlywheel.setIdleMode(IdleMode.kCoast);
     }
 
-    public void spinUp() {
-        this.leftFlywheel.set(LEFT_SPEED);
-        this.rightFlywheel.set(RIGHT_SPEED);
+    public void spinUp(double speed) {
+        this.leftFlywheel.set(speed);
+        this.rightFlywheel.set(speed);
     }
 
     public void stop() {
