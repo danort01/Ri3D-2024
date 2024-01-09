@@ -32,6 +32,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
         rightLeader.setIdleMode(IdleMode.kBrake);
         rightFollower.setIdleMode(IdleMode.kBrake);
 
+        leftLeader.setInverted(true);
+        leftFollower.setInverted(true);
+        rightLeader.setInverted(false);
+        rightFollower.setInverted(false);
+
         leftFollower.follow(leftLeader);
         rightFollower.follow(rightLeader);
 

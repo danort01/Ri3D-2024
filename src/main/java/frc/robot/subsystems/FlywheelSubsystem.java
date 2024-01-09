@@ -20,7 +20,8 @@ public class FlywheelSubsystem extends SubsystemBase {
         this.leftFlywheel.restoreFactoryDefaults();
         this.rightFlywheel.restoreFactoryDefaults();
 
-        this.rightFlywheel.setInverted(true);
+        this.leftFlywheel.setInverted(true);
+        this.rightFlywheel.setInverted(false);
 
         this.leftFlywheel.setIdleMode(IdleMode.kCoast);
         this.rightFlywheel.setIdleMode(IdleMode.kCoast);
@@ -29,6 +30,11 @@ public class FlywheelSubsystem extends SubsystemBase {
     public void spinUp() {
         this.leftFlywheel.set(LEFT_SPEED);
         this.rightFlywheel.set(RIGHT_SPEED);
+    }
+
+    public void stop() {
+        this.leftFlywheel.set(0.0);
+        this.rightFlywheel.set(0.0);
     }
 
 }
