@@ -8,7 +8,7 @@ public class Constants {
         public static final int DEVICE_ID_LEFT_FOLLOWER = 9;
         public static final int DEVICE_ID_RIGHT_LEADER = 3;
         public static final int DEVICE_ID_RIGHT_FOLLOWER = 4;
-
+        public static final double SPEED_LIMIT = 0.4;//will be 0.5
     }
 
     public static final class IntakeConstants {
